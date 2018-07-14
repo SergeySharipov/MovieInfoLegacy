@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="fragment_movie_list_rv_cols">2</integer>
+</resources>
