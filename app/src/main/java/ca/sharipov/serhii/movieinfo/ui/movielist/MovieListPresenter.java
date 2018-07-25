@@ -69,8 +69,8 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     @Override
     public void dropView() {
-        mView = null;
         unsubscribe();
+        mView = null;
     }
 
     private void unsubscribe() {

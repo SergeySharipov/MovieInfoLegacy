@@ -1,7 +1,6 @@
 package ca.sharipov.serhii.movieinfo.ui.holders;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ public class MovieHolder extends LoadMoreHolder<MovieBrief> {
 
     @Override
     public void onBind(final Fragment fragment, final MovieBrief movieBrief) {
-        ImageUtil.loadImage(fragment,
+        ImageUtil.loadImage(fragment.getContext(),
                 (ImageView) itemView.findViewById(R.id.image),
                 movieBrief.getPosterLink());
 
@@ -31,10 +30,9 @@ public class MovieHolder extends LoadMoreHolder<MovieBrief> {
             @Override
             public void onClick(View v) {
                 Context context = fragment.getContext();
-                Uri uri = Uri.parse(movieBrief.getBackdropPath());
-                // PhotoPageActivity.start(context, uri);
+
                 if (context != null) {
-                    context.startActivity(MovieDetailsActivity.newIntent(context));
+                    context.startActivity(MovieDetailsActivity.newIntent(context, movieBrief));
                 }
             }
         });

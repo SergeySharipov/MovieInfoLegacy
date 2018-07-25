@@ -6,7 +6,7 @@ import java.util.List;
 
 import ca.sharipov.serhii.movieinfo.Constants;
 
-public class MovieBrief {
+public class Movie {
 
     @SerializedName("id")
     private int id;
@@ -14,19 +14,39 @@ public class MovieBrief {
     private String title;
     @SerializedName("overview")
     private String overview;
-
     @SerializedName("release_date")
     private String releaseDate;
-    @SerializedName("genre_ids")
-    private List<Integer> genreIds;
+
+    @SerializedName("genres")
+    private List<Genre> genres;
+
     @SerializedName("adult")
     private boolean adult;
+
+    @SerializedName("original_language")
+    private String originalLanguage;
+    @SerializedName("original_title")
+    private String originalTitle;
+    @SerializedName("budget")
+    private int budget;
+    @SerializedName("homepage")
+    private String homepage;
+    @SerializedName("revenue")
+    private int revenue;
+    @SerializedName("runtime")
+    private int runtime;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("tagline")
+    private String tagline;
 
     @SerializedName("poster_path")
     private String posterPath;
     @SerializedName("backdrop_path")
     private String backdropPath;
 
+    @SerializedName("imdb_id")
+    private String imdbId;
     @SerializedName("video")
     private boolean video;
 
@@ -34,30 +54,34 @@ public class MovieBrief {
     private double voteAverage;
     @SerializedName("vote_count")
     private int voteCount;
-
-    @SerializedName("original_title")
-    private String originalTitle;
-    @SerializedName("original_language")
-    private String originalLanguage;
-
     @SerializedName("popularity")
     private double popularity;
 
-    public MovieBrief(int id, String title, String overview, String releaseDate,
-                      List<Integer> genreIds, boolean adult, String posterPath, String backdropPath, boolean video, double voteAverage, int voteCount, String originalTitle, String originalLanguage, double popularity) {
+    public Movie(int id, String title, String overview, String releaseDate, List<Genre> genres,
+                 boolean adult, String originalLanguage, String originalTitle, int budget,
+                 String homepage, int revenue, int runtime, String status, String tagline,
+                 String posterPath, String backdropPath, String imdbId, boolean video,
+                 double voteAverage, int voteCount, double popularity) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.releaseDate = releaseDate;
-        this.genreIds = genreIds;
+        this.genres = genres;
         this.adult = adult;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.budget = budget;
+        this.homepage = homepage;
+        this.revenue = revenue;
+        this.runtime = runtime;
+        this.status = status;
+        this.tagline = tagline;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
+        this.imdbId = imdbId;
         this.video = video;
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
-        this.originalTitle = originalTitle;
-        this.originalLanguage = originalLanguage;
         this.popularity = popularity;
     }
 
@@ -101,12 +125,12 @@ public class MovieBrief {
         this.releaseDate = releaseDate;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
+    public List<Genre> getGenres() {
+        return genres;
     }
 
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public boolean isAdult() {
@@ -115,6 +139,70 @@ public class MovieBrief {
 
     public void setAdult(boolean adult) {
         this.adult = adult;
+    }
+
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
     }
 
     public String getPosterPath() {
@@ -131,6 +219,14 @@ public class MovieBrief {
 
     public void setBackdropPath(String backdropPath) {
         this.backdropPath = backdropPath;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public boolean isVideo() {
@@ -157,22 +253,6 @@ public class MovieBrief {
         this.voteCount = voteCount;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
     public double getPopularity() {
         return popularity;
     }
@@ -180,5 +260,4 @@ public class MovieBrief {
     public void setPopularity(double popularity) {
         this.popularity = popularity;
     }
-
 }
