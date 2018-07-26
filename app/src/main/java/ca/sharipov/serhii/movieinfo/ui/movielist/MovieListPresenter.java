@@ -1,5 +1,7 @@
 package ca.sharipov.serhii.movieinfo.ui.movielist;
 
+import android.support.annotation.Nullable;
+
 import ca.sharipov.serhii.movieinfo.model.MovieBriefListResponse;
 import ca.sharipov.serhii.movieinfo.network.TmdbService;
 import retrofit2.Response;
@@ -49,11 +51,13 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     }
 
     @Override
-    public void search(String query) {
-        createSubscriber();
-        mView.onLoadingStart();
-        TmdbService.getInstance()
-                .searchMovieByName(subscriber, query, mPage);
+    public void search(@Nullable String query) {
+        if (query != null) {
+            createSubscriber();
+            mView.onLoadingStart();
+            TmdbService.getInstance()
+                    .searchMovieByName(subscriber, query, mPage);
+        }
     }
 
     @Override

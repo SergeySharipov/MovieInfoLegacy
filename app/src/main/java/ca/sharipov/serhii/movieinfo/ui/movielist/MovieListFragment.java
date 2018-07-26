@@ -105,14 +105,9 @@ public class MovieListFragment extends Fragment
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.takeView(this);
-    }
+    public void onDestroyView() {
+        super.onDestroyView();
 
-    @Override
-    public void onStop() {
-        super.onStop();
         mPresenter.dropView();
     }
 
@@ -142,7 +137,7 @@ public class MovieListFragment extends Fragment
     }
 
     @Override
-    public void onItemsLoaded(MovieBriefListResponse movieBriefListResponse, boolean hasMoreData) {
+    public void onItemsLoaded(@NonNull MovieBriefListResponse movieBriefListResponse, boolean hasMoreData) {
         mIsLastPage = !hasMoreData;
         List<MovieBrief> movieBriefs = movieBriefListResponse.getResults();
         Timber.d("Loaded %d items.", movieBriefs.size());

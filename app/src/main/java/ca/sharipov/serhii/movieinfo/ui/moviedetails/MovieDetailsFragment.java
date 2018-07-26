@@ -12,16 +12,10 @@ import android.widget.TextView;
 
 import ca.sharipov.serhii.movieinfo.R;
 import ca.sharipov.serhii.movieinfo.model.Movie;
-import ca.sharipov.serhii.movieinfo.network.TmdbService;
 import ca.sharipov.serhii.movieinfo.utils.ImageUtil;
-import retrofit2.Response;
-import rx.Subscriber;
 
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements MovieDetailsContract.View {
     public static final String MOVIE_ID = "MOVIE_ID";
-    Movie movie;
-    private Subscriber<Response<Movie>> subscriber;
-    private int mMovieId;
     private TextView mTitleTextView;
     private TextView mOverviewTextView;
     private TextView mReleaseDateTextView;
@@ -35,6 +29,8 @@ public class MovieDetailsFragment extends Fragment {
     private TextView mStatusTextView;
     private TextView mTaglineTextView;
     private TextView mVoteAverageTextView;
+
+    private MovieDetailsContract.Presenter mPresenter;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -52,7 +48,8 @@ public class MovieDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMovieId = getArguments().getInt(MOVIE_ID);
+            int movieId = getArguments().getInt(MOVIE_ID);
+            mPresenter = new MovieDetailsPresenter(movieId);
         }
     }
 
@@ -80,62 +77,51 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadMovies();
+
+        mPresenter.takeView(this);
+
+        mPresenter.loadMovie();
     }
 
-    private void createSubscriber() {
-        unsubscribe();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
-        subscriber = new Subscriber<Response<Movie>>() {
-            @Override
-            public void onCompleted() {
-                System.out.println("dewfASDsad");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                System.out.println("ASDsad");
-            }
-
-            @Override
-            public void onNext(Response<Movie> response) {
-                System.out.println(response.raw());
-
-                if (response.isSuccessful()) {
-                    movie = response.body();
-                    if (movie != null) {
-                        mTitleTextView.setText(movie.getTitle());
-                        mOverviewTextView.setText(movie.getOverview());
-                        mReleaseDateTextView.setText(movie.getReleaseDate());
-                        mAdultTextView.setText(movie.isAdult() + "");
-                        mAdultTextView.setText(movie.getGenres().get(0) + "");
-                        mOriginalLanguageTextView.setText(movie.getOriginalLanguage());
-                        mOriginalTitleTextView.setText(movie.getOriginalTitle());
-                        mBudgetTextView.setText(movie.getBudget() + "");
-                        mHomepageTextView.setText(movie.getHomepage());
-                        mRevenueTextView.setText(movie.getRevenue() + "");
-                        mRuntimeTextView.setText(movie.getRuntime() + "");
-                        mStatusTextView.setText(movie.getStatus());
-                        mTaglineTextView.setText(movie.getTagline());
-                        mVoteAverageTextView.setText(movie.getVoteAverage() + "(" + movie.getVoteCount() + ")");
-
-                        ImageUtil.loadImage(getContext(), (ImageView) getView().findViewById(R.id.image_poster), movie.getPosterLink());
-                    }
-                }
-            }
-        };
+        mPresenter.dropView();
     }
 
-    private void unsubscribe() {
-        if (subscriber != null && subscriber.isUnsubscribed()) {
-            subscriber.unsubscribe();
-        }
+    @Override
+    public void onLoadingStart() {
+
     }
 
-    public void loadMovies() {
-        createSubscriber();
-        TmdbService.getInstance()
-                .getMovie(subscriber, mMovieId);
+    @Override
+    public void onLoadComplete() {
+
     }
 
+    @Override
+    public void onError(Throwable e) {
+
+    }
+
+    @Override
+    public void onMovieLoaded(@NonNull Movie movie) {
+        mTitleTextView.setText(movie.getTitle());
+        mOverviewTextView.setText(movie.getOverview());
+        mReleaseDateTextView.setText(movie.getReleaseDate());
+        mAdultTextView.setText(movie.isAdult() + "");
+        mAdultTextView.setText(movie.getGenres().get(0) + "");
+        mOriginalLanguageTextView.setText(movie.getOriginalLanguage());
+        mOriginalTitleTextView.setText(movie.getOriginalTitle());
+        mBudgetTextView.setText(movie.getBudget() + "");
+        mHomepageTextView.setText(movie.getHomepage());
+        mRevenueTextView.setText(movie.getRevenue() + "");
+        mRuntimeTextView.setText(movie.getRuntime() + "");
+        mStatusTextView.setText(movie.getStatus());
+        mTaglineTextView.setText(movie.getTagline());
+        mVoteAverageTextView.setText(movie.getVoteAverage() + "(" + movie.getVoteCount() + ")");
+
+        ImageUtil.loadImage(getContext(), (ImageView) getView().findViewById(R.id.image_poster), movie.getPosterLink());
+    }
 }

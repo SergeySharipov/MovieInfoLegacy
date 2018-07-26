@@ -26,6 +26,13 @@ public class MovieHolder extends LoadMoreHolder<MovieBrief> {
         TextView title = itemView.findViewById(R.id.title);
         title.setText(movieBrief.getTitle());
 
+        TextView releaseDate = itemView.findViewById(R.id.release_date);
+        releaseDate.setText("Release date: " + movieBrief.getReleaseDate());
+
+        TextView score = itemView.findViewById(R.id.score);
+        String scoreStr = "Rating: " + movieBrief.getVoteAverage() + "(" + movieBrief.getVoteCount() + ")";
+        score.setText(scoreStr);
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

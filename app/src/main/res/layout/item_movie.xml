@@ -13,7 +13,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="150dp" />
 
         <LinearLayout
@@ -25,6 +25,8 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 android:layout_margin="5dp"
                 android:lines="2" />
 
@@ -34,7 +36,16 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:lines="1"
-                android:text="Score: 5.5" />
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:lines="1"
+                android:textSize="15sp" />
+
         </LinearLayout>
 
     </LinearLayout>
