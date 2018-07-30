@@ -64,6 +64,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     public void reset() {
         mPage = 1;
         mView.onStartNewLoad();
+        loadMovies();
     }
 
     @Override
