@@ -86,11 +86,11 @@ public class Movie {
     }
 
     public String getPosterLink() {
-        return Constants.TMDB_PHOTO_URL + posterPath;
+        return Constants.TMDB_POSTER_URL + posterPath;
     }
 
     public String getBackdropLink() {
-        return Constants.TMDB_PHOTO_URL + backdropPath;
+        return Constants.TMDB_BACKDROP_URL + backdropPath;
     }
 
     public int getId() {

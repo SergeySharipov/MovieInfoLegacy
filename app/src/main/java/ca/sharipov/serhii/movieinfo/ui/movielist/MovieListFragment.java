@@ -211,6 +211,7 @@ public class MovieListFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
+                SharedPrefUtil.setStoredQuery(getActivity(), null);
                 mPresenter.reset();
                 return true;
             default:

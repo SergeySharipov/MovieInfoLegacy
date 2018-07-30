@@ -2,7 +2,8 @@ package ca.sharipov.serhii.movieinfo;
 
 public interface Constants {
     String TMDB_API_URL = "http://api.themoviedb.org/";
-    String TMDB_PHOTO_URL = "http://image.tmdb.org/t/p/original";
+    String TMDB_POSTER_URL = "http://image.tmdb.org/t/p/w342";
+    String TMDB_BACKDROP_URL = "http://image.tmdb.org/t/p/w780";
 
     String APP_KEY = "d4d62f8eb2c8b272b9072b7cf201025d";
 

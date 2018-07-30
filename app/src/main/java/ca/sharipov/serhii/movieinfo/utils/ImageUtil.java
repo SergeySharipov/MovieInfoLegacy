@@ -9,7 +9,7 @@ public class ImageUtil {
     public static void loadImage(Context context, ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)
-                .crossFade()
+                .centerCrop()
                 .into(imageView);
     }
 
