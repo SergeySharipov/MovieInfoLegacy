@@ -6,9 +6,8 @@ import retrofit2.Response;
 import rx.Subscriber;
 
 public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
-    private Subscriber<Response<Movie>> subscriber;
+    private Subscriber<Response<Movie>> mSubscriber;
     private MovieDetailsContract.View mView;
-
     private int mMovieId;
 
     MovieDetailsPresenter(int movieId) {
@@ -18,7 +17,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     private void createSubscriber() {
         unsubscribe();
 
-        subscriber = new Subscriber<Response<Movie>>() {
+        mSubscriber = new Subscriber<Response<Movie>>() {
             @Override
             public void onCompleted() {
                 mView.onLoadComplete();
@@ -46,7 +45,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
         createSubscriber();
         mView.onLoadingStart();
         TmdbService.getInstance()
-                .getMovie(subscriber, mMovieId);
+                .getMovie(mSubscriber, mMovieId);
     }
 
     @Override
@@ -61,8 +60,8 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     }
 
     private void unsubscribe() {
-        if (subscriber != null && subscriber.isUnsubscribed()) {
-            subscriber.unsubscribe();
+        if (mSubscriber != null && mSubscriber.isUnsubscribed()) {
+            mSubscriber.unsubscribe();
         }
     }
 }

@@ -1,4 +1,4 @@
-package ca.sharipov.serhii.movieinfo.ui.moviedetails;
+package ca.sharipov.serhii.movieinfo.ui.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +12,11 @@ import java.util.List;
 import ca.sharipov.serhii.movieinfo.R;
 import ca.sharipov.serhii.movieinfo.model.Genre;
 
-class GenresRecyclerViewAdapter extends
+public class GenresRecyclerViewAdapter extends
         RecyclerView.Adapter<GenresRecyclerViewAdapter.ViewHolder> {
     private List<Genre> mGenresList;
 
-    GenresRecyclerViewAdapter(List<Genre> genresList) {
+    public GenresRecyclerViewAdapter(List<Genre> genresList) {
         mGenresList = genresList;
     }
 

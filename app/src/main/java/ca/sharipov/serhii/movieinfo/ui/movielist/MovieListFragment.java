@@ -21,19 +21,18 @@ import ca.sharipov.serhii.movieinfo.Constants;
 import ca.sharipov.serhii.movieinfo.R;
 import ca.sharipov.serhii.movieinfo.model.MovieBrief;
 import ca.sharipov.serhii.movieinfo.model.MovieBriefListResponse;
+import ca.sharipov.serhii.movieinfo.ui.adapters.MovieListPageAdapter;
 import ca.sharipov.serhii.movieinfo.utils.SharedPrefUtil;
 import timber.log.Timber;
 
-public class MovieListFragment extends Fragment
-        implements MovieListContract.View {
+public class MovieListFragment extends Fragment implements MovieListContract.View {
     private static final String TAG = "MovieListFragment";
-    protected boolean mIsLoading = false;
-    protected boolean mIsLastPage = false;
+    private boolean mIsLoading = false;
+    private boolean mIsLastPage = false;
     private TextView mEmptyTextView;
-    private MovieListAdapter mMovieListAdapter;
     private GridLayoutManager mLayoutManager;
     private MovieListContract.Presenter mPresenter;
-    protected final RecyclerView.OnScrollListener recyclerViewOnScrollListener =
+    protected final RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
             new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -54,6 +53,7 @@ public class MovieListFragment extends Fragment
                     }
                 }
             };
+    private MovieListPageAdapter mMovieListPageAdapter;
 
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
@@ -72,7 +72,7 @@ public class MovieListFragment extends Fragment
             }
         };
 
-        mMovieListAdapter = new MovieListAdapter(this, mRetryButtonClickListener);
+        mMovieListPageAdapter = new MovieListPageAdapter(this, mRetryButtonClickListener);
         mPresenter = new MovieListPresenter();
     }
 
@@ -89,8 +89,8 @@ public class MovieListFragment extends Fragment
         mLayoutManager = new GridLayoutManager(getContext(), cols);
         mLayoutManager.setSpanSizeLookup(getSpanSizeLookup(cols));
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mMovieListAdapter);
-        recyclerView.addOnScrollListener(recyclerViewOnScrollListener);
+        recyclerView.setAdapter(mMovieListPageAdapter);
+        recyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
 
         return view;
     }
@@ -119,21 +119,21 @@ public class MovieListFragment extends Fragment
     @Override
     public void onStartNewLoad() {
         mEmptyTextView.setVisibility(View.GONE);
-        mMovieListAdapter.clearMovieBriefs();
-        mMovieListAdapter.setLastPage(false);
+        mMovieListPageAdapter.clearMovieBriefs();
+        mMovieListPageAdapter.setLastPage(false);
     }
 
     @Override
     public void onLoadComplete() {
         mIsLoading = false;
-        mMovieListAdapter.setError(false);
+        mMovieListPageAdapter.setError(false);
     }
 
     @Override
     public void onError(Throwable e) {
         Timber.e(e);
-        mMovieListAdapter.setError(true);
-        mMovieListAdapter.notifyLastElementChanged();
+        mMovieListPageAdapter.setError(true);
+        mMovieListPageAdapter.notifyLastElementChanged();
     }
 
     @Override
@@ -142,17 +142,17 @@ public class MovieListFragment extends Fragment
         List<MovieBrief> movieBriefs = movieBriefListResponse.getResults();
         Timber.d("Loaded %d items.", movieBriefs.size());
 
-        int itemCount = mMovieListAdapter.getItemCount();
+        int itemCount = mMovieListPageAdapter.getItemCount();
 
-        mMovieListAdapter.setLastPage(mIsLastPage);
-        mMovieListAdapter.addMovieBriefs(movieBriefs);
+        mMovieListPageAdapter.setLastPage(mIsLastPage);
+        mMovieListPageAdapter.addMovieBriefs(movieBriefs);
 
-        if (mMovieListAdapter.getItemCount() > 0) {
-            SharedPrefUtil.setLastResult(getContext(), mMovieListAdapter.getLastMovieId());
+        if (mMovieListPageAdapter.getItemCount() > 0) {
+            SharedPrefUtil.setLastResult(getContext(), mMovieListPageAdapter.getLastMovieId());
             mEmptyTextView.setVisibility(View.GONE);
-            mMovieListAdapter.notifyItemRangeChanged(itemCount,
+            mMovieListPageAdapter.notifyItemRangeChanged(itemCount,
                     itemCount + movieBriefs.size() - 1);
-            //mMovieListAdapter.notifyDataSetChanged();
+            //mMovieListPageAdapter.notifyDataSetChanged();
         } else {
             mEmptyTextView.setVisibility(View.VISIBLE);
         }
@@ -172,7 +172,7 @@ public class MovieListFragment extends Fragment
         return new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                int viewType = mMovieListAdapter.getItemViewType(position);
+                int viewType = mMovieListPageAdapter.getItemViewType(position);
                 return viewType != 0 ? spanCount : 1;
             }
         };

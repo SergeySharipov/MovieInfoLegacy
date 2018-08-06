@@ -1,4 +1,4 @@
-package ca.sharipov.serhii.movieinfo.ui.movielist;
+package ca.sharipov.serhii.movieinfo.ui.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,7 +15,7 @@ import ca.sharipov.serhii.movieinfo.model.MovieBrief;
 import ca.sharipov.serhii.movieinfo.ui.holders.LoadMoreHolder;
 import ca.sharipov.serhii.movieinfo.ui.holders.MovieHolder;
 
-public class MovieListAdapter extends RecyclerView.Adapter<LoadMoreHolder<MovieBrief>>
+public class MovieListPageAdapter extends RecyclerView.Adapter<LoadMoreHolder<MovieBrief>>
         implements View.OnClickListener {
     private static final int VIEW_TYPE_LOAD_MORE = 101;
     private static final int VIEW_TYPE_RETRY = 102;
@@ -28,7 +28,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<LoadMoreHolder<MovieB
     private boolean mIsLastPage = false;
     private boolean mIsError = false;
 
-    MovieListAdapter(Fragment fragment, final View.OnClickListener onRetryButtonClickListener) {
+    public MovieListPageAdapter(Fragment fragment, final View.OnClickListener onRetryButtonClickListener) {
         mMovieBriefs = new ArrayList<>();
         mFragment = fragment;
         mOnRetryButtonClickListener = onRetryButtonClickListener;

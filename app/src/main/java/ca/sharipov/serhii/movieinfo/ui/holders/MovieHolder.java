@@ -27,10 +27,11 @@ public class MovieHolder extends LoadMoreHolder<MovieBrief> {
         title.setText(movieBrief.getTitle());
 
         TextView releaseDate = itemView.findViewById(R.id.release_date);
-        releaseDate.setText("Release date: " + movieBrief.getReleaseDate());
+        String releaseDateStr = fragment.getString(R.string.activity_movie_details_release_date, movieBrief.getReleaseDate());
+        releaseDate.setText(releaseDateStr);
 
         TextView score = itemView.findViewById(R.id.score);
-        String scoreStr = "Rating: " + movieBrief.getVoteAverage() + "(" + movieBrief.getVoteCount() + ")";
+        String scoreStr = fragment.getString(R.string.activity_movie_details_movie_score, movieBrief.getVoteAverage(), movieBrief.getVoteCount());
         score.setText(scoreStr);
 
         itemView.setOnClickListener(new View.OnClickListener() {

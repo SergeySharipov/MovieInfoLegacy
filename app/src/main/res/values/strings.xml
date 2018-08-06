@@ -1,15 +1,4 @@
 <resources>
-    <string name="app_name">MovieInfo</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_movies_list">MoviesListActivity</string>
-
-    <string name="error_message">Failed to connect.</string>
-    <string name="button_retry">Retry</string>
 
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
@@ -17,11 +6,22 @@
     <string name="clear_search">Recently viewed</string>
     <string name="empty">Not found.</string>
 
-    <string name="open_page">Open page</string>
-    <string name="close">Close</string>
+    <!-- activity_main_ strings -->
+    <string name="app_name">MovieInfo</string>
+    <string name="activity_main_navigation_drawer_open">Open navigation drawer</string>
+    <string name="activity_main_navigation_drawer_close">Close navigation drawer</string>
+    <string name="activity_main_nav_header_title">Android Studio</string>
+    <string name="activity_main_nav_header_subtitle">android.studio@android.com</string>
+    <string name="activity_main_nav_header_desc">Navigation header</string>
 
-    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <!-- activity_movie_list_ strings -->
+    <string name="activity_movie_list_title">MoviesListActivity</string>
+    <string name="activity_movie_list_error_message">Failed to connect.</string>
+    <string name="activity_movie_list_button_retry">Retry</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- activity_movie_details_ strings -->
+    <string name="activity_movie_details_title">MovieDetailsActivity</string>
+    <string name="activity_movie_details_release_date">Release date: %1$s</string>
+    <string name="activity_movie_details_movie_score">Rating: %1$2.1f(%2$d)</string>
 
 </resources>

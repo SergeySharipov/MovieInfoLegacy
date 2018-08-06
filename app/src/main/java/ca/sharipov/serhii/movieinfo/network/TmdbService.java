@@ -43,36 +43,5 @@ public class TmdbService {
     private static class Nested {
         static TmdbService instance = new TmdbService();
     }
-//
-//    public void getRecent(Observer<Response<FlickrResponse>> observer) {
-//        mTmdbApi.getRecent(PAGE_ITERATOR_SIZE, 1)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//    }
-//
-//    public void searchPhotos(Observer<Response<FlickrResponse>> observer,
-//            String query, String extras) {
-//        Map<String, String> map = Collections.singletonMap(TmdbApi.ARGUMENT_TEXT, query);
-//        mTmdbApi.search(extras, map)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//    }
-//
-//    public void searchPhotos(Observer<Response<FlickrResponse>> observer,
-//            double latitude, double longitude, int perPage, @Nullable Double radius) {
-//        mTmdbApi.search(latitude, longitude, perPage, radius)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//    }
-//
-//    public void searchPhotos(Observer<Response<FlickrResponse>> observer, String query,
-//            int perPage, int page) {
-//        mTmdbApi.search(query, perPage, page)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//    }
+
 }

@@ -14,17 +14,18 @@ import android.widget.TextView;
 
 import ca.sharipov.serhii.movieinfo.R;
 import ca.sharipov.serhii.movieinfo.model.Movie;
+import ca.sharipov.serhii.movieinfo.ui.adapters.GenresRecyclerViewAdapter;
 import ca.sharipov.serhii.movieinfo.utils.ImageUtil;
 
 public class MovieDetailsFragment extends Fragment implements MovieDetailsContract.View {
     public static final String MOVIE_ID = "MOVIE_ID";
 
-    private TextView mTitleTextView;
-    private TextView mOverviewTextView;
-    private TextView mReleaseDateTextView;
-    private TextView mVoteAverageTextView;
-    private RecyclerView genresRv;
-    private ImageView imagePoster;
+    private TextView mTitleTv;
+    private TextView mOverviewTv;
+    private TextView mReleaseDateTv;
+    private TextView mVoteAverageTv;
+    private RecyclerView mGenresRv;
+    private ImageView mPosterIv;
 
     private MovieDetailsContract.Presenter mPresenter;
 
@@ -54,14 +55,14 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_details, container, false);
 
-        mTitleTextView = view.findViewById(R.id.title);
-        mOverviewTextView = view.findViewById(R.id.overview);
-        mReleaseDateTextView = view.findViewById(R.id.release_date);
-        mVoteAverageTextView = view.findViewById(R.id.vote_average);
+        mTitleTv = view.findViewById(R.id.title);
+        mOverviewTv = view.findViewById(R.id.overview);
+        mReleaseDateTv = view.findViewById(R.id.release_date);
+        mVoteAverageTv = view.findViewById(R.id.vote_average);
 
-        genresRv = view.findViewById(R.id.genres_list);
+        mGenresRv = view.findViewById(R.id.genres_list);
 
-        imagePoster = view.findViewById(R.id.image_poster);
+        mPosterIv = view.findViewById(R.id.image_poster);
 
         return view;
     }
@@ -99,16 +100,21 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
 
     @Override
     public void onMovieLoaded(@NonNull Movie movie) {
-        mTitleTextView.setText(movie.getTitle());
-        mOverviewTextView.setText(movie.getOverview());
-        mReleaseDateTextView.setText("Release date: " + movie.getReleaseDate());
-        mVoteAverageTextView.setText("Rating: " + movie.getVoteAverage() + "(" + movie.getVoteCount() + ")");
+        mTitleTv.setText(movie.getTitle());
+        mOverviewTv.setText(movie.getOverview());
+
+        String releaseDateStr = getString(R.string.activity_movie_details_release_date,
+                movie.getReleaseDate());
+        String scoreStr = getString(R.string.activity_movie_details_movie_score,
+                movie.getVoteAverage(), movie.getVoteCount());
+        mReleaseDateTv.setText(releaseDateStr);
+        mVoteAverageTv.setText(scoreStr);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        genresRv.setLayoutManager(layoutManager);
-        genresRv.setAdapter(new GenresRecyclerViewAdapter(movie.getGenres()));
+        mGenresRv.setLayoutManager(layoutManager);
+        mGenresRv.setAdapter(new GenresRecyclerViewAdapter(movie.getGenres()));
 
-        ImageUtil.loadImage(getContext(), imagePoster, movie.getPosterLink());
+        ImageUtil.loadImage(getContext(), mPosterIv, movie.getPosterLink());
     }
 }
